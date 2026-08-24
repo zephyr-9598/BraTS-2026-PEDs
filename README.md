@@ -182,7 +182,7 @@ Use the nnUNetv2_train command to train the baseline
 
 ```bash
 Use the custom trainer mode at E3b
-nnUNetv2_train DATASET_ID configuration fold -tr nnUNet_reliabilityweights
+nnUNetv2_train DATASET_ID configuration fold -tr  nnUNetTrainerReliabilityWeighted
 ```
 
 #### Step 3: Train with Reliability-Weighted Supervision
@@ -222,33 +222,14 @@ Use the inference command generated at inference.txt
 ```
 BraTS-2026-PEDs/
 ├── src/
-│   ├── custom_trainer.py         # Custom nnUNetTrainer with combined weighting
-│   ├── uncertainty.py            # Epistemic and aleatoric uncertainty estimation
-│   ├── loss.py                   # Reliability-weighted loss functions
-│   ├── weights.py                # Combined weight computation
-│   └── utils.py                  # Utility functions
+│   ├── nnUNet_epistemic_only.py         # Epistemic only trainer, set experiment mode to enable frequency
+│   ├── nnUNet_epistemic_spatial.py      # Epistemic spatial version 
+│   ├── nnUNet_aleatoric.py              # Aleatoric weighing version
+│   └── nnUNet_epistemic2.py             # Aleatoric spatial weighting 
 ├── scripts/
-│   ├── compute_weights.py        # Compute reliability weights from fold models
-│   ├── train.py                  # Training script
-│   ├── inference.py              # Inference script
-│   └── evaluate.py               # Evaluation script
-├── configs/
-│   ├── baseline.yaml             # Baseline nnU-Net configuration
-│   ├── epistemic.yaml            # Epistemic-only weighting
-│   └── combined.yaml             # Epistemic + frequency correction (recommended)
-├── experiments/
-│   ├── baseline/                 # Baseline experiment results
-│   └── combined/                 # Combined weighting experiment results
-├── assets/
-│   ├── qualitative_comparison.png
-│   └── architecture.png
-├── tests/
-│   ├── test_uncertainty.py
-│   ├── test_loss.py
-│   └── test_weights.py
+│   ├── Reliability_weights.py           # Use scalar reliability weights from fold models
+│   └── Reliability_weights_spatial.py   # Use spatial reliability weights from fold models
 ├── requirements.txt
-├── setup.py
-├── LICENSE
 └── README.md
 ```
 
